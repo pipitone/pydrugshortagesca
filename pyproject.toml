@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "pydrugshortagesca"
+version = "0.1.0"
+description = "Minimal Python wrapper for the drugshortagescanada.ca database API"
+authors = ["Jon Pipitone <jon@pipitone.ca>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/pipitone/pydrugshortagesca"
+repository = "https://github.com/pipitone/pydrugshortagesca"
+include = [
+	"LICENSE", 
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+requests = "^2.22.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
