@@ -72,8 +72,13 @@ class Session:
         """
         return self._get_request(SEARCH_URL, params = kwargs)
 
-    def isearch(self, **kwargs):
-        "Stream results as JSON objects"
+    def isearch(self, _filter=None, **kwargs):
+        """Stream results as JSON objects
+
+            _filter is a boolean function accepting a JSON object representing a
+              row, and if true that row will be yielded.  
+            kwargs are passed directly as part of the search request
+        """
         kwargs['limit'] = PAGE_LIMIT
         kwargs['offset'] = 0
 
@@ -81,7 +86,7 @@ class Session:
         limit = results['limit']
 
         for offset in range(limit, results['total']+limit, limit):
-            for item in results['data']:
+            for item in filter(_filter, results['data']):
                 yield item
             kwargs['offset'] = offset
             results = self.search(**kwargs)
@@ -91,5 +96,6 @@ class Session:
 
     def discontinuation_report(self, report_id): 
         return self._get_request(DISCONTINUATION_URL + "/" + report_id)
+
 
 # vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4

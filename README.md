@@ -12,6 +12,10 @@ Uses [poetry](https://python-poetry.org/) (e.g. `pip install poetry` first).
 poetry install
 ```
 
+
+## Usage
+
+
 ## Testing
 
 Create a file `.api` that contains your username and password for `canadadrugshortages.ca` on one line, e.g. 
