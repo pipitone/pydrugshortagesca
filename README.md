@@ -16,17 +16,17 @@ You can then configure your `drugshortagescanada.ca` username and password in on
 
 Create configuration file in `~/.config/pydrugshortagesca/config`:
 
-	```sh
-	email="username@domain.com"
-	password="s3cr3t!"
-	```
+```sh
+email="username@domain.com"
+password="s3cr3t!"
+```
 
 Or, set the following environment variables: 
 
-	```sh
-	export DSC_EMAIL="username@domain.com"
-	export DSC_PASSWORD="s3cr3t!"
-	```
+```sh
+export DSC_EMAIL="username@domain.com"
+export DSC_PASSWORD="s3cr3t!"
+```
 
 You can test your installation by running the command `pydrugshortagesca`. You
 should not be prompted for a username or password, and it should return some
