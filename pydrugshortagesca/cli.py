@@ -1,4 +1,5 @@
 import click
+import click_config_file
 import json
 import os
 import sys
@@ -6,23 +7,23 @@ from .api import Session
 from . import export
 
 @click.command()
-@click.option('--email', prompt=True, 
-        help="Account email address",
-        default=lambda: os.environ.get('EMAIL',''))
-@click.password_option()
+@click.option('--email', prompt=True, show_envvar=True,
+        help="Account email address")
+@click.password_option(show_envvar=True, 
+        help="Account password")
 @click.option("--type", "record_type",
         type=click.Choice(["shortages", "discontinuations"], case_sensitive=False))
-@click.option("--params", "-p", type=(str,str), multiple=True, 
-       help="""Arbitrary search parameters to pass to the API, e.g. -p din 0123123
-       """)
-@click.option('--fmt', type=click.Choice(['json', 'flat', 'csv'], case_sensitive=False), 
+@click.option("--params", "-p", 
+        type=(str,str), multiple=True, 
+        help="Arbitrary search parameters to pass to the API, e.g. -p din 0123123")
+@click.option('--fmt', 
+        type=click.Choice(['json', 'flat', 'csv'], case_sensitive=False), 
         default="json")
-
+@click_config_file.configuration_option(show_default=True)
 def search(email, password, record_type, params, fmt):
     """Searches the drugshortagescanada.ca database
    
-        See https://www.drugshortagescanada.ca/blog/52 
-        for all the gory details.
+       See https://www.drugshortagescanada.ca/blog/52 for all the gory details.
 
        When using --params, the following parameters are supported: 
 

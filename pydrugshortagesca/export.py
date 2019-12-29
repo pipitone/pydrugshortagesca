@@ -28,15 +28,15 @@ def _find_csv_mappings(row, mappings):
             newcols[field] = newcols[field][key]
     return newcols
         
-def isearch_flatten(session, shortages=True, _filter=None, **kwargs):
+def isearch_flatten(session, shortages=True, _filter=None, mappings=CSV_MAPPINGS, **kwargs):
     """Return a flattened version of the search results"""
     for row in session.isearch(_filter=_filter, **kwargs):
         newrow = {k:v for k,v in row.items() if isinstance(v,(int,float,str,bool))}
-        newrow.update(_find_csv_mappings(row, CSV_MAPPINGS))
+        newrow.update(_find_csv_mappings(row, mappings))
         newrow = {k:str(v).replace('\r\n',' ') for k,v in newrow.items()}
         yield newrow
 
-def as_csv(session, csvfile, shortages=True, _filter=None, **kwargs):
+def as_csv(session, csvfile, shortages=True, _filter=None, mappings=CSV_MAPPINGS, **kwargs):
     """Serializes search results as a CSV formatted table.
     
         csvfile is a writable file-like object
