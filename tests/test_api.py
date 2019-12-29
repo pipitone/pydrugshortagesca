@@ -1,13 +1,16 @@
+import configobj
+import os.path
 import pydrugshortagesca 
 import pytest
 
+CONFIG_PATH=os.path.expanduser('~/.config/pydrugshortagesca/config')
 @pytest.fixture
 def session(): 
-    import os.path
-    if os.path.exists(".api"):
-        email, password = open(".api").read().split()
+    if os.path.exists(CONFIG_PATH):
+        config = configobj.ConfigObj(CONFIG_PATH)
+        email, password = config['email'], config['password']
     else: 
-        pytest.exit(".api credentials file not found")
+        pytest.exit("config file not found at {}".format(CONFIG_PATH))
     return pydrugshortagesca.Session(email, password)
 
 def test_login(session):
@@ -44,7 +47,7 @@ def test_isearch_all(session):
 def test_isearch_filter_all(session):
     session.login()
     import itertools
-    results = list(itertools.islice(session.isearch(_filter=lambda x: False), 10))
+    results = list(itertools.islice(session.isearch(_filter=lambda x: False,term='venlafaxine'), 10))
     assert len(results) == 0
 
 def test_shortage_report(session):
