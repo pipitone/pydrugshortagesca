@@ -12,7 +12,8 @@ from . import export
 @click.password_option(show_envvar=True, 
         help="Account password")
 @click.option("--type", "record_type",
-        type=click.Choice(["shortages", "discontinuations"], case_sensitive=False))
+        type=click.Choice(["shortages", "discontinuations"], case_sensitive=False),
+        default='shortages', show_default=True)
 @click.option("--params", "-p", 
         type=(str,str), multiple=True, 
         help="Arbitrary search parameters to pass to the API, e.g. -p din 0123123")
