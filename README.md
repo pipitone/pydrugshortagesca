@@ -44,31 +44,31 @@ import json
 session = api.Session(email="name@domain.com", password="123456")
 
 try:
-	session.login()
+    session.login()
 except Exception as e:
-	print("Error with log in", e)
-	print("Details:", session.response.content)
+    print("Error with log in", e)
+    print("Details:", session.response.content)
 else: 
-	# search() returns a batch of results.
+    # search() returns a batch of results.
     # Use the `limit` and `offset` parameters to adjust which batch to return.
-	json_results = session.search(term="venlafaxine", offset=20)
-	print("Total results {}".format(json_results['total']))
+    json_results = session.search(term="venlafaxine", offset=20)
+    print("Total results {}".format(json_results['total']))
 
-	# isearch() returns an iterator over all records returned by a search.
+    # isearch() returns an iterator over all records returned by a search.
     # This may make several requests to the database if needed.
-	results = session.isearch(term="venlafaxine", orderby='updated_date')
-	for rec in results:
-		print(rec['updated_date'],rec['en_drug_brand_name'],rec['drug_strength'])
+    results = session.isearch(term="venlafaxine", orderby='updated_date')
+    for rec in results:
+        print(rec['updated_date'],rec['en_drug_brand_name'],rec['drug_strength'])
 
-	# Custom filter functions can also be supplied
-	results = session.isearch(_filter=lambda x: x['drug_strength'] == '150.0MG',
-		term="venlafaxine", orderby='updated_date'):
-	for rec in results:
-		print(rec['updated_date'],rec['en_drug_brand_name'],rec['drug_strength'])
-	
-	# The export module provides utility functions for exporting results in tabular form
-	csvfile = open('shortages.csv','w')
-	export.as_csv(session, csvfile, shortages=True, term="venlafaxine")
+    # Custom filter functions can also be supplied
+    results = session.isearch(_filter=lambda x: x['drug_strength'] == '150.0MG',
+        term="venlafaxine", orderby='updated_date'):
+    for rec in results:
+        print(rec['updated_date'],rec['en_drug_brand_name'],rec['drug_strength'])
+    
+    # The export module provides utility functions for exporting results in tabular form
+    csvfile = open('shortages.csv','w')
+    export.as_csv(session, csvfile, shortages=True, term="venlafaxine")
 ```
 
 ## CLI 
