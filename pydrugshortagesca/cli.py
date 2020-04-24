@@ -2,6 +2,7 @@ import click
 import click_config_file
 import json
 import os
+import requests
 import sys
 from .api import Session
 from . import export
@@ -50,7 +51,14 @@ def search(email, password, record_type, params, fmt):
         updated_date    the date of the last change to the report
     """
     s = Session(email, password)
-    s.login()
+    try: 
+        s.login()
+    except requests.RequestException as e: 
+        message = "Error during login: "
+        if hasattr(e, "response"): 
+            message += e.response.text
+        raise click.ClickException(message)
+        
     params=dict(params)
     shortages=(record_type == 'shortages')
 

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pydrugshortagesca"
-version = "0.1.2"
+version = "0.1.3"
 description = "Minimal Python wrapper for the drugshortagescanada.ca database API"
 authors = ["Jon Pipitone <jon@pipitone.ca>"]
 license = "MIT"
